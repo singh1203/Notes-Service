@@ -1,0 +1,7 @@
+syntax = "proto3";
+package notes;
+
+option go_package = "github.com/singh1203/go-notes-service/proto/notes;notes";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
