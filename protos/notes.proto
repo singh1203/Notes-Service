@@ -5,3 +5,77 @@ option go_package = "github.com/singh1203/go-notes-service/proto/notes;notes";
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+service NotesService {
+  rpc CreateNote (CreateNoteRequest) returns (CreateNoteResponse) {
+    option (google.api.http) = {
+      post: "/v1/notes"
+      body: "*"
+    };
+  }
+  rpc GetNote (GetNoteRequest) returns (GetNoteResponse) {
+    option (google.api.http) = {
+      get: "/v1/notes/{id}"
+    };
+  }
+  rpc ListNotes (ListNotesRequest) returns (ListNotesResponse) {
+    option (google.api.http) = {
+      get: "/v1/notes"
+    };
+  }
+  rpc UpdateNote (UpdateNoteRequest) returns (UpdateNoteResponse) {
+    option (google.api.http) = {
+      put: "/v1/notes/{id}"
+      body: "*"
+    };
+  }
+  rpc DeleteNote (DeleteNoteRequest) returns (DeleteNoteResponse) {
+    option (google.api.http) = {
+      delete: "/v1/notes/{id}"
+    };
+  }
+}
+
+message Note {
+  string id = 1;
+  string title = 2;
+  string content = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+message CreateNoteRequest {
+  string title = 1;
+  string content = 2;
+}
+message CreateNoteResponse {
+  Note note = 1;
+}
+message GetNoteRequest {
+  string id = 1;
+}
+message GetNoteResponse {
+  Note note = 1;
+}
+message ListNotesRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+message ListNotesResponse {
+  repeated Note notes = 1;
+  int32 total_count = 2;
+}
+message UpdateNoteRequest {
+  string id = 1;
+  string title = 2;
+  string content = 3;
+}
+message UpdateNoteResponse {
+  Note note = 1;
+}
+message DeleteNoteRequest {
+  string id = 1;
+}
+message DeleteNoteResponse {
+  string id = 1;
+}
